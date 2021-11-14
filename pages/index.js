@@ -1,8 +1,22 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useRef } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+
+import { BentoSidebar } from "@bentoproject/sidebar/react";
+import "@bentoproject/sidebar/styles.css";
+
+import {
+  BentoAccordion,
+  BentoAccordionSection,
+  BentoAccordionHeader,
+  BentoAccordionContent,
+} from "@bentoproject/accordion/react";
+import "@bentoproject/accordion/styles.css";
 
 export default function Home() {
+  const sidebarRef = useRef();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,39 +31,70 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
+          <button onClick={() => sidebarRef.current.open()}>
+            Open Doc Sidebar
+          </button>
         </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <BentoSidebar ref={sidebarRef} style={{ width: "350px" }}>
+          <button onClick={() => sidebarRef.current.close()}>X</button>
+          <BentoAccordion expandSingleSection animate style={{ width: "100%" }}>
+            <BentoAccordionSection>
+              <BentoAccordionHeader>
+                <h2>Documentation &rarr;</h2>
+              </BentoAccordionHeader>
+              <BentoAccordionContent>
+                <a href="https://nextjs.org/docs">
+                  <p>
+                    Find in-depth information about Next.js features and API.
+                  </p>
+                </a>
+              </BentoAccordionContent>
+            </BentoAccordionSection>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+            <BentoAccordionSection>
+              <BentoAccordionHeader>
+                <h2>Learn &rarr;</h2>
+              </BentoAccordionHeader>
+              <BentoAccordionContent>
+                <a href="https://nextjs.org/learn">
+                  <p>
+                    Learn about Next.js in an interactive course with quizzes!
+                  </p>
+                </a>
+              </BentoAccordionContent>
+            </BentoAccordionSection>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+            <BentoAccordionSection>
+              <BentoAccordionHeader>
+                <h2>Examples &rarr;</h2>
+              </BentoAccordionHeader>
+              <BentoAccordionContent>
+                <a href="https://github.com/vercel/next.js/tree/master/examples">
+                  <p>
+                    Discover and deploy boilerplate example Next.js projects.
+                  </p>
+                </a>
+              </BentoAccordionContent>
+            </BentoAccordionSection>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+            <BentoAccordionSection>
+              <BentoAccordionHeader>
+                <h2>Deploy &rarr;</h2>
+              </BentoAccordionHeader>
+              <BentoAccordionContent>
+                <a href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
+                  <p>
+                    Instantly deploy your Next.js site to a public URL with
+                    Vercel.
+                  </p>
+                </a>
+              </BentoAccordionContent>
+            </BentoAccordionSection>
+          </BentoAccordion>
+        </BentoSidebar>
       </main>
 
       <footer className={styles.footer}>
@@ -58,12 +103,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
